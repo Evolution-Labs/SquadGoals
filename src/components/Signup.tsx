@@ -25,7 +25,7 @@ const Signup = ({changeComponent}) => {
     const body = {email,password,first_name:firstName,last_name:lastName};
     console.log('i am body',body);
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch('/user/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

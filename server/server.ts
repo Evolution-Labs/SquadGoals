@@ -37,7 +37,7 @@ app.use(cookieParser())
 /**
  * SERVE STATIC FILES
  */
-app.use(express.static(path.join(__dirname, "../dist" ))); 
+app.use(express.static(path.join(__dirname, '../dist'))); 
 
 /**
  * ROUTE HANDLER FOR USER RELATED OPERATIONS, SUCH AS CREATION, AUTHENTICATION, AUTHORIZATION
@@ -68,7 +68,7 @@ app.use((error:ErrorType, req:Request, res:Response, next:NextFunction) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 500,
-    message: {err: 'An error occured'},
+    message: {err: 'An error occurred'},
   };
   const errObj = Object.assign({}, defaultErr, error);
   console.log("errorObj.log: ", errObj.log);
@@ -79,5 +79,5 @@ app.use((error:ErrorType, req:Request, res:Response, next:NextFunction) => {
  * CONNECTS TO SERVER
  */
 app.listen(process.env.PORT, () => {
-  console.log(`[server]: Server is listening on PORT:${process.env.PORT}`);
+  console.log(`[server]: Server is listening on PORT:${process.env.PORT || 3000}`);
 });

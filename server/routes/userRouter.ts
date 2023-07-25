@@ -8,12 +8,12 @@ const userRouter = express.Router();
  * HANDLES SIGNING UP A USER
  */
 userRouter.post(
-    '/signup', 
-    userController.createUser,
-    (req: Request, res: Response) => {
-        // check with front-end on how they'd like the response here
+  '/signup', 
+  userController.createUser,
+  (req: Request, res: Response) => {
+    // check with front-end on how they'd like the response here
     res.send('User Created Successfully');
-})
+});
 /**
  * HANDLES LOGGING IN A USER
  */

@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import astronaut from '../assets/astronaut_moon.png'
+import astronaut from '../assets/astronaut_moon.png';
 import { useToast } from '@/components/ui/use-toast';
 
 const Login = ({changeComponent}) => {
@@ -24,6 +24,9 @@ const Login = ({changeComponent}) => {
   //setting navigate
   const navigate = useNavigate();
 
+
+
+
   //form submission function for login
   const formSubmission = async (event)=>{
     event.preventDefault();
@@ -32,7 +35,7 @@ const Login = ({changeComponent}) => {
       description: 'Successful Signin',
     });
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -40,7 +43,8 @@ const Login = ({changeComponent}) => {
         body: JSON.stringify(body)
       });
       if(response.ok){
-        
+        const data = await response.json();
+        localStorage.setItem('token', `${data.token}`);
         navigate('/feed', { replace: true });
       }
     } catch (error) {
