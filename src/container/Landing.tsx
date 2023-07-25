@@ -17,6 +17,6 @@ const Landing = () => {
     <div className='landing'>
       { isLogin ? <Signup changeComponent={changeComponent}/> : <Login changeComponent={changeComponent}/> }
     </div>
-  )
-}
-export default Landing
+  );
+};
+export default Landing;
