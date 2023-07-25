@@ -1,26 +1,28 @@
 import { Request, Response, NextFunction } from 'express';
 import db from '../models/squadGoalsModel.js';
-import { compareSync } from 'bcrypt-ts';
+import { compareSync } from 'bcrypt-ts'
 import jwt from 'jsonwebtoken';
 
+// LOCAL TYPES
+type middlewareFunction = (req:Request, res:Response, next: NextFunction) => Promise<void>;
+
 type authControllerType = {
-    authenticateUser: (req:Request, res:Response, next: NextFunction) => Promise<void>
-    authorizeUser: (req:Request, res:Response, next: NextFunction) => Promise<void>
-    verifyToken: (req:Request, res:Response, next: NextFunction) => Promise<void>
+    authenticateUser: middlewareFunction;
+    authorizeUser: middlewareFunction;
+    verifyToken: middlewareFunction;
 }
 
+const authController: authControllerType= {} as authControllerType;
 
-const authController= {} as authControllerType;
-
-// authenticate the user
-
+/**
+ * AUTHENTICATES USER WITH EMAIL/PASSWORD INFO.
+ */
 authController.authenticateUser = async (req, res, next) => {
   try {
     // check with frontend on how they are passing in the data into the req.body
     const { email, password } = req.body;
     const userQuery = 'SELECT * FROM public.user WHERE public.user.email = $1';
     const data = await db.query(userQuery, [email]);
-    console.log("data: ", data);
     const user = data.rows[0];
     const verifyPassword = compareSync(password, user.password); // --> true/false
     if (verifyPassword){
@@ -28,19 +30,20 @@ authController.authenticateUser = async (req, res, next) => {
     } else {
       return next({
         log: 'Incorrect password',
-        message: {err: `An error occured in authController.authenticateUser middleware: Incorrect password`}
+        message: {err: `MIDDLEWARE ERROR - authController.authenticateUser: Incorrect password`}
       });
     }
   } catch (error){
     return next({
         log: 'Unable to authenticate user',
-        message: {err: `An error occured in authController.authenticateUser middleware: ${error}`}
-    })
+        message: {err: `MIDDLEWARE ERROR - authController.authenticateUser: ${error}`}
+    });
   }
-}
+};
 
-// authorize user to user our endpoints
-
+/**
+ * AUTHORIZES USER WITH PROPER ACCESS TOKEN.
+ */
 authController.authorizeUser = async (req, res, next) => {
     try {
       const { email } = req.body;
@@ -52,30 +55,33 @@ authController.authorizeUser = async (req, res, next) => {
     catch(error) {
         return next({
             log: 'Unable to authorize user',
-            message: {err: `An error occured in authController.authorizeUser middleware: ${error}`}
-        })
+            message: {err: `MIDDLEWARE ERROR - authController.authorizeUser: ${error}`}
+        });
     }
-}
+};
 
+/**
+ * AUTHENTICATES USER WITH THE PROPER ACCESS TOKEN.
+ */
 authController.verifyToken = async (req, res, next) => {
 try{
-  const authHeader = req.headers.authorization;
+  const authHeader = req.headers['Authorization'] as string;
   if (authHeader){
     const secret = process.env.ACCESS_TOKEN_SECRET as string;
-    jwt.verify(authHeader.split(' ')[1], secret);
+    jwt.verify(authHeader.split(' ')[1], secret); // --> { "Authorization": "Bearer TOKEN" }
     return next();
   } else {
     return next({
         log: 'Not authorization credentials provided',
-        message: {err: `An error occured in authController.verifyToken middleware: Not authorization credentials provided`}
-    })
+        message: {err: `MIDDLEWARE ERROR - authController.verifyToken: Not authorization credentials provided`}
+    });
   }
 } catch(error) {
     return next({
         log: 'Unable to verify token',
-        message: {err: `An error occured in authController.verifyToken middleware: ${error}`}
-    })
+        message: {err: `MIDDLEWARE ERROR - authController.verifyToken: ${error}`}
+    });
 }
-}
+};
 
 export default authController;

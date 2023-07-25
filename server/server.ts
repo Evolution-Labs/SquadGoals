@@ -6,8 +6,7 @@ import userRouter from './routes/userRouter.ts';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 
-dotenv.config();
-
+// LOCAL TYPES
 type MessageType = {
   err?: string
 }
@@ -17,33 +16,54 @@ type ErrorType = {
   message?: MessageType,
 }
 
-const app: Express = express();
-const { PORT } = process.env;
+dotenv.config();
 
+// __DIRNAME WORKAROUND FOR ES MODULES
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.join(__filename);
+
+const app: Express = express();
+
+/**
+ * PARSE INCOMING JSON
+ */
 app.use(express.json());
 
+/**
+ * PARSE INCOMING COOKIES
+ */
 app.use(cookieParser())
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+/**
+ * SERVE STATIC FILES
+ */
 app.use(express.static(path.join(__dirname, "../dist" ))); 
 
+/**
+ * ROUTE HANDLER FOR USER RELATED OPERATIONS, SUCH AS CREATION, AUTHENTICATION, AUTHORIZATION
+ */
 app.use('/user', userRouter);
 
+/**
+ * ROUTE HANDLER FOR API REQUESTS
+ */
 // app.use('/api', apiRouter);
 
 // route for tasks
 
 // route for squads
 
-// 404 error handler
+/**
+ * 404 ERROR HANDLER
+ */
 app.use('*', (req: Request,res: Response) => {
   res.status(404).send('404 page not found');
 })
 
-// global error handler
 /* eslint-disable */
+/**
+ * GLOBAL ERROR HANDLER
+ */
 app.use((error:ErrorType, req:Request, res:Response, next:NextFunction) => { 
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
@@ -55,7 +75,9 @@ app.use((error:ErrorType, req:Request, res:Response, next:NextFunction) => {
   res.status(errObj.status).json(errObj.message)
 })
 
-
-app.listen(PORT, () => {
-  console.log(`[server]: Server is listening on PORT:${PORT}`);
+/**
+ * CONNECTS TO SERVER
+ */
+app.listen(process.env.PORT, () => {
+  console.log(`[server]: Server is listening on PORT:${process.env.PORT}`);
 });

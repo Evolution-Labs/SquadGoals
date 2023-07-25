@@ -1,8 +1,12 @@
 import express, { Request, Response } from 'express';
 import userController from '../controllers/userController.ts'
 import authController from '../controllers/authController.js'
-const userRouter = express.Router();
 
+
+const userRouter = express.Router();
+/**
+ * HANDLES SIGNING UP A USER
+ */
 userRouter.post(
     '/signup', 
     userController.createUser,
@@ -10,7 +14,9 @@ userRouter.post(
         // check with front-end on how they'd like the response here
     res.send('User Created Successfully');
 })
-
+/**
+ * HANDLES LOGGING IN A USER
+ */
 userRouter.post(
   '/login',
   authController.authenticateUser,
