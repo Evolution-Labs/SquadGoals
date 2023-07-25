@@ -9,7 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.1.1",
+    "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-select": "^1.2.2",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.4",
+    "@reduxjs/toolkit": "^1.9.5",
     "bcrypt": "^5.1.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
     "cookie-parser": "^1.4.6",
     "jsonwebtoken": "^9.0.1",
     "jwt-decode": "^3.1.2",
@@ -17,9 +26,18 @@
     "prettier": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.64.1"
+    "react-hook-form": "^7.45.2",
+    "react-redux": "^8.1.1",
+    "react-router": "^6.14.2",
+    "react-router-dom": "^6.14.2",
+    "redux-toolkit": "^1.1.2",
+    "sass": "^1.64.1",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss-animate": "^1.0.6",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/node": "^20.4.4",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
@@ -34,6 +52,7 @@
     "pg": "^8.11.1",
     "postcss": "^8.4.27",
     "react-toastify": "^9.1.3",
+    "redux-devtools-extension": "^2.13.9",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
