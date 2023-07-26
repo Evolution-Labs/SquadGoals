@@ -46,7 +46,10 @@ dashboardController.getUsers = async (req, res, next) => {
       WHERE u.squad_id = $1;
     `;
     const data = await db.query(getUsersQuery, [squad_id]);
-    res.locals.getUsers = data.rows[0];
+
+ 
+    res.locals.getUsers = data.rows;
+
     return next();
   } catch (error){
     return next({

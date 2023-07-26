@@ -6,7 +6,50 @@ import DailyDisplay from '@/components/DailyDisplay';
 import TasksDisplay from '@/components/TasksDisplay';
 import { useEffect } from 'react';
 
-
+// {
+//   "getSquad": {
+//       "_id": 1,
+//       "name": "Cohort 58",
+//       "description": "A big ole barrel of bakas",
+//       "squad_key": "sussybaka",
+//       "created_at": "2023-07-26T03:47:49.057Z",
+//       "updated_at": null,
+//       "deleted_at": null
+//   },
+//   "getUsers": {
+//       "_id": 1,
+//       "first_name": "Kasey",
+//       "last_name": "Nguyen"
+//   },
+//   "getTasks": [
+//       {
+//           "_id": 1,
+//           "name": "Touch Grass",
+//           "points": 5,
+//           "squad_id": 1,
+//           "daily_challenge": true,
+//           "created_at": "2023-07-25T20:58:22.000Z",
+//           "updated_at": null,
+//           "deleted_at": null
+//       }
+//   ],
+//   "getCompletedTasks": [
+//       {
+//           "_id": 1,
+//           "name": "Touch Grass",
+//           "points": 5,
+//           "squad_id": 1,
+//           "daily_challenge": true,
+//           "created_at": "2023-07-25T21:02:42.000Z",
+//           "updated_at": null,
+//           "deleted_at": null,
+//           "task_id": 1,
+//           "user_id": 1
+//       }
+//   ],
+//   "getUserPoints": 0,
+//   "getSquadPoints": 5
+// }
 
 const Feed = () => {
 
