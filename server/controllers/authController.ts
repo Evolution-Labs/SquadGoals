@@ -51,9 +51,9 @@ authController.authenticateUser = async (req, res, next) => {
  */
 authController.authorizeUser = async (req, res, next) => {
   try {
-    const { email, squad_id, user_id } = req.body;
+    const { user_id, squad_id } = res.locals;
     const secret = process.env.ACCESS_TOKEN_SECRET as string;
-    const token = jwt.sign({ 'email': email, 'user_id': user_id, 'squad_id': squad_id }, secret, { expiresIn: '30000' }); // update expire time 
+    const token = jwt.sign({'user_id': user_id, 'squad_id': squad_id }, secret, { expiresIn: '1h' }); // update expire time 
     res.cookie('token', token,{ httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
     return next();
   }
@@ -74,7 +74,10 @@ authController.verifyToken = async (req, res, next) => {
     const { token } = req.cookies;
     if (token){
       const secret = process.env.ACCESS_TOKEN_SECRET as string;
-      jwt.verify(token, secret); 
+      const decoded = jwt.verify(token, secret);
+      const { user_id, squad_id } = decoded as jwt.JwtPayload;
+      res.locals.user_id = user_id;
+      res.locals.squad_id = squad_id;
       return next();
     } else {
       return next({
