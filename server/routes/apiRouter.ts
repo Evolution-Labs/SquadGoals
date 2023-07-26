@@ -5,25 +5,27 @@ import taskController from '../controllers/taskController.ts';
 const apiRouter = express.Router();
 
 /**
- * GETS ALL NECESSARY DASHBOARD DATA OF A USER -- REQUIRES SQUAD_ID
+ * GETS ALL NECESSARY DASHBOARD DATA OF A USER FOR ONE SQUAD -- REQUIRES SQUAD_ID
  */
 apiRouter.get(
   '/dashboard',
   authController.verifyToken,
-  dashboardController.getSquads,
+  dashboardController.getSquad,
   dashboardController.getUsers,
   taskController.getTasks,
   taskController.getCompletedTasks,
   (req: Request, res: Response) => {
-    const { getSquads, getUsers, getTasks, getCompletedTasks } = res.locals;
+    const { getSquad, getUsers, getTasks, getCompletedTasks, getUserPoints, getSquadPoints } = res.locals;
     res.status(200).json(
       { 
         dashboardData: 
         {
-          getSquads,
+          getSquad,
           getUsers,
           getTasks,
           getCompletedTasks,
+          getUserPoints,
+          getSquadPoints
         }
       }
     );
@@ -54,11 +56,10 @@ apiRouter.post(
   '/logTask',
   authController.verifyToken,
   taskController.logTask,
-  taskController.getCompletedTasks,
   (req: Request, res: Response) => {
-    const { getCompletedTasks } = res.locals;
+    const { logTask, logTaskPoints } = res.locals;
     res.status(200).json({
-      getCompletedTasks,
+      logTask, // UPDATE WITH SQUAD REDUCER'S COMPLETED TASKS AND POINTS
       message: 'Task logged successfully!'
     });
   }

@@ -23,12 +23,14 @@ authController.authenticateUser = async (req, res, next) => {
     const authenticateUserQuery = `
     SELECT * 
     FROM public.user 
-    WHERE public.user.email = $1;
+    WHERE public.user.email = $1; 
     `;
     const data = await db.query(authenticateUserQuery, [email]);
     const user = data.rows[0];
     const verifyPassword = compareSync(password, user.password); // --> true/false
     if (verifyPassword){
+      res.locals.user_id = user._id;
+      res.locals.squad_id = user.squad_id;
       return next();
     } else {
       return next({
@@ -49,10 +51,10 @@ authController.authenticateUser = async (req, res, next) => {
  */
 authController.authorizeUser = async (req, res, next) => {
   try {
-    const { email } = req.body;
+    const { email, squad_id, user_id } = req.body;
     const secret = process.env.ACCESS_TOKEN_SECRET as string;
-    const token = jwt.sign({ 'email': email }, secret, { expiresIn: '30000' }); // update expire time 
-    res.cookie('token',token,{httpOnly:true, maxAge:24 * 60 * 60 * 1000});
+    const token = jwt.sign({ 'email': email, 'user_id': user_id, 'squad_id': squad_id }, secret, { expiresIn: '30000' }); // update expire time 
+    res.cookie('token', token,{ httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
     return next();
   }
   catch(error) {
