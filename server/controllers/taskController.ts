@@ -20,8 +20,7 @@ const taskController: taskControllerType = {} as taskControllerType;
  */
 taskController.getTasks = async (req, res, next) => {
   try {
-    const { squad_id } = req.body;
-    // need to filter any tasks that have deleted_at 
+    const { squad_id } = res.locals;
     const getTasksQuery = `
     SELECT * FROM public.task t
     WHERE 
@@ -46,7 +45,7 @@ taskController.getTasks = async (req, res, next) => {
 taskController.getCompletedTasks = async (req, res, next) => {
   try {
     // ADDED user_id TO FILTER FOR USER POINTS
-    const { user_id, squad_id } = req.body;
+    const { user_id, squad_id } = res.locals;
     const getCompletedTasksQuery = `
     SELECT * FROM public.task t 
     LEFT JOIN public.completed_tasks c 
@@ -82,7 +81,8 @@ taskController.getCompletedTasks = async (req, res, next) => {
  */
 taskController.logTask = async (req, res, next) => {
   try {
-    const { task_id, squad_id, user_id, } = req.body;
+    const { task_id } = req.body;
+    const { squad_id, user_id, } = res.locals;
     const createdAt = dayjs().format();
     const logTaskQuery = `
       INSERT INTO public.completed_tasks
@@ -107,7 +107,8 @@ taskController.logTask = async (req, res, next) => {
  */
 taskController.addTask = async (req, res, next) => {
   try {
-    const { name, points, squad_id, daily_challenge } = req.body;
+    const { squad_id } = res.locals;
+    const { name, points, daily_challenge } = req.body;
     const createdAt = dayjs().format();
     const addTaskQuery = `
     INSERT INTO public.task
