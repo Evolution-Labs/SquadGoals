@@ -17,9 +17,9 @@ const Signup = ({changeComponent}) => {
   const [password,setPassword] = useState('');
   const [password2,setPassword2] = useState('');
 
-  const formSubmission = async (event)=>{
+  const formSubmission = async (event) => {
     event.preventDefault();
-    if(password !== password2){
+    if(password !== password2) {
       return alert('BAKA! Passwords Do Not Match!!');
     }
     const body = {email,password,first_name:firstName,last_name:lastName,squad_id:1};
@@ -32,7 +32,7 @@ const Signup = ({changeComponent}) => {
         },
         body: JSON.stringify(body)
       });
-      if(response.ok){
+      if(response.ok) {
         changeComponent();
       }
     } catch (error) {
@@ -40,7 +40,6 @@ const Signup = ({changeComponent}) => {
     }
   };
   
-
   return (
     <>
       <Card className="w-[100%]">

@@ -7,8 +7,18 @@ import {
 } from '@/components/ui/select';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {useSelector, useDispatch} from 'react-redux';
 
 const Navbar = () => {
+
+  const userInfo = useSelector((state)=>state.userReducer);
+  console.log(userInfo)
+  const username = userInfo.first_name + ' Ba------------ka dayone';
+  // useEffect(() => {
+  //   console.log(userInfo)
+  // }, []);
+  
+
   return (
     <div className="navbar border border-gray-200 shadow-md">
       <div className="navbar-container mx-4">
@@ -19,7 +29,7 @@ const Navbar = () => {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </div>
-            @username
+            {username}
         </div>
         <div className="nav-section justify-center">
           Dashboard Leaderboard

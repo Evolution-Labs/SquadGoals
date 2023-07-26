@@ -7,7 +7,7 @@ import { useState } from 'react';
 const Landing = () => {
   const [isLogin, setIsLogin] = useState(false);
 
-  function changeComponent ():void {
+  function changeComponent (): void {
     // console.log('change components');
     setIsLogin(!isLogin);
   }

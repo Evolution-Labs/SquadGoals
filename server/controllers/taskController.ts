@@ -52,6 +52,15 @@ taskController.getCompletedTasks = async (req, res, next) => {
     ON c.task_id = t._id 
     WHERE c.squad_id = $1;
     `;
+    // const getCompletedTasksQuery = `
+    // SELECT * FROM public.completed_tasks c 
+    // LEFT JOIN public.task t 
+    // ON c.task_id = t._id 
+    // WHERE t.squad_id = $1
+    // LEFT JOIN public.user u
+    // ON c.user_id = u._id
+    // WHERE u._id = $2
+    // `;
     const data = await db.query(getCompletedTasksQuery, [squad_id]);
     const completedTasks = data.rows;
 
@@ -101,6 +110,7 @@ taskController.logTask = async (req, res, next) => {
     });
   }
 };
+
 
 /**
  * ADDS A NEW TASK TO A SQUAD

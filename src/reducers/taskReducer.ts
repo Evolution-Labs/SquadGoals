@@ -37,7 +37,7 @@ const initialState: TaskState = {
 //           "user_id": 1
 //       }
 //   ],
-const squadReducer = createReducer(initialState, (builder) => {
+const taskReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(actions.setTaskActionCreator, (state, action: Action) => {
       const { tasks, completed_tasks } = action.payload;
@@ -50,7 +50,7 @@ const squadReducer = createReducer(initialState, (builder) => {
     .addCase(actions.addCompletedTaskActionCreator, (state, action: Action) => {
       const { logTask } = action.payload;
       state.completed_tasks.push(logTask);
-    })
+    });
 });
 
-export default squadReducer;
+export default taskReducer;

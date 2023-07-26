@@ -36,7 +36,7 @@ const Login = ({changeComponent}) => {
 
 
   //form submission function for login
-  const formSubmission = async (event)=>{
+  const formSubmission = async (event) => {
     event.preventDefault();
     const body = {email,password};
     toast({
@@ -59,7 +59,6 @@ const Login = ({changeComponent}) => {
       console.error(error);
     }
   };
-  
   
   return (
     <>

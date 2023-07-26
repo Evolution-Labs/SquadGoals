@@ -77,6 +77,21 @@
 	}
 }
 
+@layer utilities {
+    @variants responsive {
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+    }
+  }
+
 /* body{
   height:1000px;
 } */
@@ -202,8 +217,7 @@ border-red-500 w-full p-1 gap-1 flex flex-wrap xs:justify-center md:justify-betw
 	height: 300px;
 	/* height: 90%; */
 	padding: 4px;
-	gap: 4px;
-	border: 1px solid red;
+	gap: 12px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -214,7 +228,6 @@ border-red-500 w-full p-1 gap-1 flex flex-wrap xs:justify-center md:justify-betw
 .task {
 	height: 120px;
 	width: 300px;
-	border: 1px solid black;
 	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
@@ -224,11 +237,9 @@ border-red-500 w-full p-1 gap-1 flex flex-wrap xs:justify-center md:justify-betw
 
 .task-title {
 	font-weight: bolder;
-	border: 1px solid green;
 }
 
 .task-button-container {
-	border: 1px solid pink;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
@@ -236,7 +247,7 @@ border-red-500 w-full p-1 gap-1 flex flex-wrap xs:justify-center md:justify-betw
 }
 
 .task-button-log {
-	width: 30%;
+	width: 40%;
 	font-size: 0.8rem;
 	color: black;
 	background-color: white;

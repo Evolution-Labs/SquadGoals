@@ -5,7 +5,8 @@ type SquadState = {
     name: string,
     description: string,
     squadKey: string,
-    points: number
+    points: number,
+    members:number
 }
 
 const initialState: SquadState = {
@@ -13,6 +14,7 @@ const initialState: SquadState = {
   description: '',
   squadKey: '',
   points: 0,
+  members:0,
 };
 //   "getSquad": {
 //       "_id": 1,
@@ -26,12 +28,13 @@ const initialState: SquadState = {
 const squadReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(actions.setSquadActionCreator, (state, action: PayloadAction) => {
-      const { name, description, squad_key, points } = action.payload;
+      const { name, description, squad_key, points, members } = action.payload;
       // UPDATE STORE STATE OF THE CURRENT SQUAD PAGE
       state.name  = name;
       state.description  = description;
       state.squadKey  = squad_key;
       state.points  = points;
+      state.members = members;
     });
 });
 
