@@ -24,7 +24,7 @@ userRouter.post(
   authController.authorizeUser,
   (req: Request, res: Response) => {
     // check with front-end on how they'd like the response here
-    res.status(200).json({ 'token': res.locals.token });
+    res.send('Logged In Successfully!');
   }
 );
 
