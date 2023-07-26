@@ -19,6 +19,7 @@ dashboardController.getSquad = async (req, res, next) => {
   try {
     // destructure user_id
     const { user_id, squad_id } = req.body;
+    
     // SELECT all squads where user squad id is equal to squad id
     const getSquadQuery = `
     SELECT * 
@@ -48,7 +49,7 @@ dashboardController.getUsers = async (req, res, next) => {
     `;
     const data = await db.query(getUsersQuery, [squad_id]);
     console.log('usersData', data);
-    res.locals.getUsers = data.rows[0];
+    res.locals.getUsers = data.rows;
     return next();
   } catch (error){
     return next({

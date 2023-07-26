@@ -31,6 +31,7 @@ authController.authenticateUser = async (req, res, next) => {
     if (verifyPassword){
       res.locals.user_id = user._id;
       res.locals.squad_id = user.squad_id;
+      res.locals.userInfo = {first_name:user.first_name,last_name:user.last_name};
       return next();
     } else {
       return next({

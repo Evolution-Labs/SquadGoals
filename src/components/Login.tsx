@@ -12,12 +12,15 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import astronaut from '../assets/astronaut_moon.png';
 import { useToast } from '@/components/ui/use-toast';
+import { setUserActionCreator } from '@/actions/actions';
+import { useDispatch } from 'react-redux';
 
 const Login = ({changeComponent}) => {
   //setting username and password
   const [password,setPassword] = useState('');
   const [email,setEmail] = useState('');
   
+  const dispatch = useDispatch();
   //setting toast
   const { toast } = useToast();
   
@@ -49,7 +52,7 @@ const Login = ({changeComponent}) => {
       });
       if(response.ok){
         const data = await response.json();
-        localStorage.setItem('token', `${data.token}`);
+        dispatch(setUserActionCreator(data));
         navigate('/feed', { replace: true });
       }
     } catch (error) {

@@ -7,7 +7,7 @@ const apiRouter = express.Router();
 /**
  * GETS ALL NECESSARY DASHBOARD DATA OF A USER FOR ONE SQUAD -- REQUIRES SQUAD_ID
  */
-apiRouter.get(
+apiRouter.post(
   '/dashboard',
   authController.verifyToken,
   dashboardController.getSquad,

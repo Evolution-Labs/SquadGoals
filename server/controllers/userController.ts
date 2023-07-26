@@ -20,7 +20,6 @@ userController.createUser = async (req, res, next) => {
     const { first_name, last_name, email, password } = req.body;
     const hashedPassword = hashSync(password, genSaltSync(10));
     const createdAt = dayjs().format(); 
-  
     const createNewUser = 'INSERT INTO public.user (first_name, last_name, email, password, squad_id, created_at) VALUES ($1, $2, $3, $4, $5, $6)';
     await db.query(createNewUser, [first_name, last_name, email, hashedPassword, 1, createdAt]);
     return next();
