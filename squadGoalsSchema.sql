@@ -1,14 +1,3 @@
-CREATE TABLE public.user (
-	"_id" serial PRIMARY KEY,
-	"first_name" varchar NOT NULL,
-    "last_name" varchar NOT NULL,
-	"email" varchar  NOT NULL UNIQUE,
-	"password" varchar  NOT NULL,
-    "created_at" timestamp NOT NULL,
-    "updated_at" timestamp,
-    "deleted_at" timestamp
-);
-
 CREATE TABLE public.squad (
   "_id" serial PRIMARY KEY NOT NULL,
   "name" varchar NOT NULL,
@@ -19,10 +8,16 @@ CREATE TABLE public.squad (
   "deleted_at" timestamp
 );
 
-CREATE TABLE public.user_squad (
-	"_id" serial PRIMARY KEY NOT NULL,
-  "user_id" serial NOT NULL REFERENCES public.user ("_id"),
-  "squad_id" serial NOT NULL REFERENCES public.squad("_id")
+CREATE TABLE public.user (
+	"_id" serial PRIMARY KEY,
+	"first_name" varchar NOT NULL,
+    "last_name" varchar NOT NULL,
+	"email" varchar  NOT NULL UNIQUE,
+	"password" varchar  NOT NULL,
+  "squad_id" serial NOT NULL REFERENCES public.squad("_id"),
+    "created_at" timestamp NOT NULL,
+    "updated_at" timestamp,
+    "deleted_at" timestamp
 );
 
 CREATE TABLE public.task (
@@ -46,7 +41,12 @@ CREATE TABLE public.completed_tasks (
     "deleted_at" timestamp
 )
 
+-- INSERT INTO public.squad (name, description, squad_key, created_at) VALUES ('Cohort 58', 'A big ole barrel of bakas', 'sussybaka' ,now());
+
 -- insert Cohort 58 SQUAD into the SQL tables
 -- append functionality to userController.createUser middleware to add every new user to Cohort 58 SQUAD
+
 -- psql -d postgres://sbriubrv:aIs4KnZbZN2OEorES0P__OhbstItGngq@mahmud.db.elephantsql.com/sbriubrv -f squadGoalsSchema.sql
+
+-- UPDATE CREATEUSER, GET USER QUERIES
 
