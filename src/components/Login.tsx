@@ -8,7 +8,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import astronaut from '../assets/astronaut_moon.png';
 import { useToast } from '@/components/ui/use-toast';
@@ -24,7 +24,12 @@ const Login = ({changeComponent}) => {
   //setting navigate
   const navigate = useNavigate();
 
-
+  // useEffect(() => {
+  //   // const cookies = browser.cookies.get('token')
+  //   console.log('i am looking for cookies');
+  //   const cookies = document.cookie;
+  //   console.log(cookies);
+  // }, [])
 
 
   //form submission function for login

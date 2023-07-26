@@ -104,15 +104,112 @@ body {
 	justify-content: center;
 	align-items: center;
 	/* background-color: blue; */
-  background-image: url('./assets/abstract_background.avif');
-  background-size: cover;
+	background-image: url('./assets/abstract_background.avif');
+	background-size: cover;
 	background-position: center;
-  background-repeat: no-repeat;
+	background-repeat: no-repeat;
+	padding: 20px;
 }
 
 .landing {
 	width: 375px;
 }
+
+.squad {
+	height: 100%;
+}
+
+.activity-feed {
+	height: 100%;
+}
+
+.navbar {
+	height: 5%;
+	background: salmon;
+	display: flex;
+	justify-content: center;
+}
+
+.navbar-container {
+	border: 1px solid teal;
+	display: flex;
+	background-color: dodgerblue;
+	width: 100%;
+	height: 100%;
+	justify-content: space-between;
+	align-items: center;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.nav-section {
+	border: 1px solid pink;
+	width: 32%;
+	display: flex;
+	height: 100%;
+	/* justify-content: center; */
+	align-items: center;
+	/* background-color: pink; */
+}
+
+.profile-image {
+	border: 1px solid red;
+	margin-right: 5px;
+}
+
+.left {
+	height: 91%;
+}
+
+.right {
+	height: 91%;
+}
+
+.feed-container {
+	height: 95%;
+}
+
+/* <div className='task-container md:bg-black lg:bg-red border 
+border-red-500 w-full p-1 gap-1 flex flex-wrap xs:justify-center md:justify-between  lg:justify-between'> */
+.task-container {
+	/* height: auto; */
+	padding: 4px;
+	gap: 10px;
+	border: 1px solid red;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.task {
+	height: 130px;
+	width: 250px;
+	/* background-color: red; */
+}
+
+@media only screen and (min-width: 600px) {
+	.task-container {
+		justify-content: space-around;
+	}
+}
+
+/* @media only screen and (min-width: 1000px) {
+	.task-container {
+		justify-content: space-between;
+	}
+} */
+
+@media only screen and (min-width: 600px) {
+	.task {
+		/* background-color: red; */
+		width: 300px;
+	}
+}
+
+span {
+	color: rgb(107 114 128);
+}
+
 @media only screen and (max-width: 400px) {
 	.landing {
 		width: 350px;

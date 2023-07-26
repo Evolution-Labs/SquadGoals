@@ -50,7 +50,7 @@ authController.authorizeUser = async (req, res, next) => {
     const { email } = req.body;
     const secret = process.env.ACCESS_TOKEN_SECRET as string;
     const token = jwt.sign({ 'email': email }, secret, { expiresIn: '30000' }); // update expire time 
-    res.locals.token = token;
+    res.cookie('token',token,{httpOnly:true, maxAge:24 * 60 * 60 * 1000});
     return next();
   }
   catch(error) {
