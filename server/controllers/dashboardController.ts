@@ -6,7 +6,7 @@ import db from '../models/squadGoalsModel.ts';
 type middlewareFunction = (req:Request, res:Response, next: NextFunction) => Promise<void>;
 
 type dashboardControllerType = {
-    getSquads: middlewareFunction;
+    getSquad: middlewareFunction;
     getUsers: middlewareFunction;
 }
 
@@ -15,19 +15,21 @@ const dashboardController: dashboardControllerType = {} as dashboardControllerTy
 /**
  * GETS SQUADS OF USER
  */
-dashboardController.getSquads = async (req, res, next) => {
+dashboardController.getSquad = async (req, res, next) => {
   try {
-    const { squad_id } = req.body;
-    const getSquadsQuery = `
-    SELECT * FROM public.squad 
+    // destructure user_id
+    const { user_id, squad_id } = req.body;
+    // SELECT all squads where user squad id is equal to squad id
+    const getSquadQuery = `
+    SELECT * 
+    FROM public.squad 
     WHERE public.squad._id = $1;`;
-    const data = await db.query(getSquadsQuery, [squad_id]);
-    console.log('squadsData', data);
-    res.locals.getSquads = data.rows[0];
+    const data = await db.query(getSquadQuery, [squad_id]);
+    res.locals.getSquad = data.rows[0];
     return next();
   } catch(error) {
     return next({
-      log: `Error retrieving squadsData: ${error}`,
+      log: `Error retrieving squadData: ${error}`,
       message: { err: `MIDDLEWARE ERROR - dashboardController.getSquad: ${error}`}
     });
   }

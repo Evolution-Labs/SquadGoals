@@ -45,7 +45,8 @@ taskController.getTasks = async (req, res, next) => {
  */
 taskController.getCompletedTasks = async (req, res, next) => {
   try {
-    const { squad_id } = req.body;
+    // ADDED user_id TO FILTER FOR USER POINTS
+    const { user_id, squad_id } = req.body;
     const getCompletedTasksQuery = `
     SELECT * FROM public.task t 
     LEFT JOIN public.completed_tasks c 
@@ -53,8 +54,20 @@ taskController.getCompletedTasks = async (req, res, next) => {
     WHERE c.squad_id = $1;
     `;
     const data = await db.query(getCompletedTasksQuery, [squad_id]);
-    console.log('completedTasksData: ', data);
-    res.locals.getCompletedTasks = data.rows;
+    const completedTasks = data.rows;
+
+    let getUserPoints = 0;
+    const getSquadPoints = completedTasks.reduce((total, task) => {
+      total += task.points;
+      if (task.user_id === user_id){
+        getUserPoints += task.points;
+      }
+      return total;
+    }, 0);
+
+    res.locals.getCompletedTasks = completedTasks;
+    res.locals.getUserPoints = getUserPoints;
+    res.locals.getSquadPoints = getSquadPoints;
     return next();
   } catch(error) {
     return next({
@@ -74,9 +87,12 @@ taskController.logTask = async (req, res, next) => {
     const logTaskQuery = `
       INSERT INTO public.completed_tasks
       (task_id, squad_id, user_id, created_at) 
-      VALUES ($1, $2, $3, $4);
+      VALUES ($1, $2, $3, $4)
+      RETURNING *;
       `;
-    await db.query(logTaskQuery, [task_id, squad_id, user_id, createdAt]);
+    const data = await db.query(logTaskQuery, [task_id, squad_id, user_id, createdAt]);
+    const task = data.rows[0];
+    res.locals.logTask = task;
     return next();
   } catch(error) {
     return next({
