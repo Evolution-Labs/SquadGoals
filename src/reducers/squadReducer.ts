@@ -35,6 +35,10 @@ const squadReducer = createReducer(initialState, (builder) => {
       state.squadKey  = squad_key;
       state.points  = points;
       state.members = members;
+    }) 
+    .addCase(actions.addSquadPointsActionCreator, (state, action: PayloadAction) => {
+      const { points } = action.payload;
+      state.points = state.points + points;
     });
 });
 

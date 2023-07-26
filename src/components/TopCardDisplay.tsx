@@ -6,8 +6,8 @@ import {
   TabsList,
   TabsTrigger,
 } from './ui/tabs';
-import award from '../assets/squad-icons/award.svg';
-import users from '../assets/squad-icons/users.svg';
+import PointsIcon from '../assets/squad-icons/points.svg';
+import PeopleIcon from '../assets/squad-icons/people.svg';
 import {useSelector} from 'react-redux';
 
 const TopCardDisplay = () => {
@@ -24,9 +24,9 @@ const TopCardDisplay = () => {
           </TabsList>
         </Tabs>
       </div>
-      <div className='row-span-2 grid grid-cols-3 gap-2'>
-        <TopCard name={'Team Points'}  image={award} points={squadInfo.points}/>
-        <TopCard name={'Team Members'}  image={users} points={squadInfo.members}/>
+      <div className='row-span-2 grid grid-cols-3 gap-2 mb-4'>
+        <TopCard name={'Team Points'}  image={PointsIcon} points={squadInfo.points}/>
+        <TopCard name={'Team Members'}  image={PeopleIcon} points={squadInfo.members}/>
         <TopCard name={'User Points'} points={userInfo.points}/>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
-import { setUserActionCreator } from '../actions/actions.ts';
+import { setUserActionCreator,setUserPointsActionCreator } from '../actions/actions.ts';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 type UserType = {
@@ -22,7 +22,11 @@ const userReducer = createReducer(initialState, (builder) => {
       state.first_name = first_name;
       state.last_name = last_name;
       state.points = points;
-
+    })
+    .addCase(setUserPointsActionCreator, (state,action: PayloadAction)=>{
+      const { points } = action.payload;
+      state.points = state.points + points;
     });
+    // .addCase(setUserNameActionCreator, )
 });
 export default userReducer;

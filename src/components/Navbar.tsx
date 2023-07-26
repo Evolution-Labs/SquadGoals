@@ -12,29 +12,28 @@ import {useSelector, useDispatch} from 'react-redux';
 const Navbar = () => {
 
   const userInfo = useSelector((state)=>state.userReducer);
-  console.log(userInfo)
-  const username = userInfo.first_name + ' Ba------------ka dayone';
+  console.log(userInfo);
+  const username = 'Konnichiwa ' + userInfo.first_name;
   // useEffect(() => {
   //   console.log(userInfo)
   // }, []);
   
-
   return (
-    <div className="navbar border border-gray-200 shadow-md">
-      <div className="navbar-container mx-4">
-        <div className="nav-section justify-start">
-          <div className="profile-image">
+    <div className="p-2 border border-gray-200 shadow-md bg-white z-[2] sticky top-0 w-full">
+      <div className="flex items-center justify-between w-full mx-4">
+        <div className='flex items-center'>
+          <div className="mr-4">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </div>
-            {username}
+          {username}
         </div>
-        <div className="nav-section justify-center">
-          Dashboard Leaderboard
+        <div className='font-medium'>
+          Dashboard
         </div>
-        <div className="nav-section justify-end">
+        <div className="justify-items-end mr-[32px]">
           <Select>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Choose Squad" />
