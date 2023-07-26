@@ -10,7 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const Navbar = () => {
   return (
-    <div className="border border-red-500 navbar">
+    <div className="navbar border border-gray-200 shadow-md">
       <div className="navbar-container mx-4">
         <div className="nav-section justify-start">
           <div className="profile-image">

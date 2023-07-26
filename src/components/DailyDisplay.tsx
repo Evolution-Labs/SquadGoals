@@ -4,7 +4,7 @@ import DailyChallenge from './DailyChallenge';
 
 const DailyDisplay = () => {
   return (
-    <div className='row-span-1 border border-primary grid grid-rows-5 rounded-md'>
+    <div className='border border-gray-200 shadow-md grid grid-rows-5 rounded-md mb-4 '>
       <div className='flex justify-between p-2 row-span-1'>
         <div className='flex'>
           <img src={zap} alt="heko" className='h-6 w-6 ' />

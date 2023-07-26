@@ -11,16 +11,14 @@ import {
 const Task = () => {
   return (
     // <Card className="w-[250px] h-[140px]">
-    <Card className="task">
-      <CardHeader>
-        <CardTitle>Task name</CardTitle>
-        <CardDescription>Issued by @Username</CardDescription>
-      </CardHeader>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline">+5 points</Button>
-        <Button>Log Task</Button>
-      </CardFooter>
-  </Card>
+    <div className='task'>
+      <div className='task-title'>Task title</div>
+      <div><span>Issued by @Username</span></div>
+      <div className='task-button-container'>
+        <Button className="task-button-point">+5 points</Button>
+        <Button className="task-button-log">Log Task</Button>
+      </div>
+    </div>
   );
 };
 export default Task;
