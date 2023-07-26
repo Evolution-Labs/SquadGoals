@@ -2,7 +2,7 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import userRouter from './routes/userRouter.ts';
-// import apiRouter from './routes/apiRouter';
+import apiRouter from './routes/apiRouter.ts';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 
@@ -47,20 +47,15 @@ app.use('/user', userRouter);
 /**
  * ROUTE HANDLER FOR API REQUESTS
  */
-// app.use('/api', apiRouter);
-
-// route for tasks
-
-// route for squads
+app.use('/api', apiRouter);
 
 /**
  * 404 ERROR HANDLER
  */
 app.use('*', (req: Request,res: Response) => {
   res.status(404).send('404 page not found');
-})
+});
 
-/* eslint-disable */
 /**
  * GLOBAL ERROR HANDLER
  */
@@ -71,9 +66,9 @@ app.use((error:ErrorType, req:Request, res:Response, next:NextFunction) => {
     message: {err: 'An error occurred'},
   };
   const errObj = Object.assign({}, defaultErr, error);
-  console.log("errorObj.log: ", errObj.log);
+  console.log('errorObj.log: ', errObj.log);
   res.status(errObj.status).json(errObj.message)
-})
+});
 
 /**
  * CONNECTS TO SERVER

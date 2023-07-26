@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import db from '../models/squadGoalsModel.js';
+import db from '../models/squadGoalsModel.ts';
 import { compareSync } from 'bcrypt-ts';
 import jwt from 'jsonwebtoken';
 
@@ -14,16 +14,19 @@ type authControllerType = {
 
 const authController: authControllerType = {} as authControllerType;
 
-
 /**
  * AUTHENTICATES USER WITH EMAIL/PASSWORD INFO.
  */
 authController.authenticateUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const userQuery = 'SELECT * FROM public.user WHERE public.user.email = $1';
-    const data = await db.query(userQuery, [email]);
-    // const data = await db.query(userQuery);
+    const authenticateUserQuery = `
+    SELECT * 
+    FROM public.user 
+    WHERE public.user.email = $1 
+    RETURNING *;
+    `;
+    const data = await db.query(authenticateUserQuery, [email]);
     const user = data.rows[0];
     const verifyPassword = compareSync(password, user.password); // --> true/false
     if (verifyPassword){
@@ -64,12 +67,13 @@ authController.authorizeUser = async (req, res, next) => {
 /**
  * AUTHENTICATES USER WITH THE PROPER ACCESS TOKEN.
  */
+// MODIFY LATER FOR FRONT END CHANGES TO BACKEND
 authController.verifyToken = async (req, res, next) => {
   try{
-    const authHeader = req.headers['Authorization'] as string;
-    if (authHeader){
+    const { token } = req.cookies;
+    if (token){
       const secret = process.env.ACCESS_TOKEN_SECRET as string;
-      jwt.verify(authHeader.split(' ')[1], secret); // --> { "Authorization": "Bearer TOKEN" }
+      jwt.verify(token, secret); 
       return next();
     } else {
       return next({

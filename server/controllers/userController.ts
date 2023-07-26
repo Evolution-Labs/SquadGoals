@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import db from '../models/squadGoalsModel.js';
+import db from '../models/squadGoalsModel.ts';
 import { genSaltSync, hashSync } from 'bcrypt-ts';
 import dayjs from 'dayjs';
 
@@ -17,18 +17,16 @@ const userController: userControllerType = {} as userControllerType;
  */
 userController.createUser = async (req, res, next) => {
   try {
-    // check with frontend on how they are passing in the data into the req.body
-    const { first_name, last_name, email, password } = req.body;
+    const { first_name, last_name, email, password, squad_id } = req.body;
     const hashedPassword = hashSync(password, genSaltSync(10));
     const createdAt = dayjs().format(); 
   
-    const createNewUser = 'INSERT INTO public.user (first_name, last_name, email, password, created_at) VALUES($1, $2, $3, $4, $5)'
-    await db.query(createNewUser, [first_name, last_name, email, hashedPassword, createdAt]);
-
+    const createNewUser = 'INSERT INTO public.user (first_name, last_name, email, password, squad_id, created_at) VALUES ($1, $2, $3, $4, $5, $6)';
+    await db.query(createNewUser, [first_name, last_name, email, hashedPassword, squad_id, createdAt]);
     return next();
   } catch (error){
     return next({
-      log: `A user with that email already exists.`,
+      log: `A user with that email already exists.  ${error}`,
       message: {err: `MIDDLEWARE ERROR - userController.createUser: ${error}`}
     });
   }

@@ -1,5 +1,84 @@
-// import express, { Express, Request, Response } from 'express';
-// const apiRouter = express.Router();
+import express, { Express, Request, Response } from 'express';
+import authController from '../controllers/authController.ts';
+import dashboardController from '../controllers/dashboardController.ts';
+import taskController from '../controllers/taskController.ts';
+const apiRouter = express.Router();
 
+/**
+ * GETS ALL NECESSARY DASHBOARD DATA OF A USER -- REQUIRES SQUAD_ID
+ */
+apiRouter.get(
+  '/dashboard',
+  authController.verifyToken,
+  dashboardController.getSquads,
+  dashboardController.getUsers,
+  taskController.getTasks,
+  taskController.getCompletedTasks,
+  (req: Request, res: Response) => {
+    const { getSquads, getUsers, getTasks, getCompletedTasks } = res.locals;
+    res.status(200).json(
+      { 
+        dashboardData: 
+        {
+          getSquads,
+          getUsers,
+          getTasks,
+          getCompletedTasks,
+        }
+      }
+    );
+  }
+);
 
-// export default apiRouter;
+/**
+ * ADDS A TASK TO THE SQUAD - REQUIRES NAME, POINTS, SQUAD_ID, DAILY_CHALLENGE
+ */
+apiRouter.post(
+  '/tasks',
+  authController.verifyToken,
+  taskController.addTask,
+  taskController.getTasks,
+  (req: Request, res: Response) => {
+    const { getTasks } = res.locals;
+    res.status(200).json({
+      getTasks,
+      message: 'Task created successfully!'
+    });
+  }
+);
+
+/**
+ * LOGS WHEN A TASK IS COMPLETED BY A USER - REQUIRES TASK_ID, SQUAD_ID, AND USER_ID
+ */
+apiRouter.post(
+  '/logTask',
+  authController.verifyToken,
+  taskController.logTask,
+  taskController.getCompletedTasks,
+  (req: Request, res: Response) => {
+    const { getCompletedTasks } = res.locals;
+    res.status(200).json({
+      getCompletedTasks,
+      message: 'Task logged successfully!'
+    });
+  }
+);
+
+/**
+ * REMOVES A TASK FROM THE SQUAD - REQUIRES TASK_ID AND SQUAD_ID
+ */
+apiRouter.patch(
+  '/tasks',
+  authController.verifyToken,
+  taskController.removeTask,
+  taskController.getTasks,
+  (req: Request, res: Response) => {
+    const { getTasks } = res.locals;
+    res.status(200).json({ 
+      getTasks,
+      message: 'Task removed successfully!'
+    });
+  }
+);
+
+export default apiRouter;
