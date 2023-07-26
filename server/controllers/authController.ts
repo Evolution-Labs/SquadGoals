@@ -23,8 +23,7 @@ authController.authenticateUser = async (req, res, next) => {
     const authenticateUserQuery = `
     SELECT * 
     FROM public.user 
-    WHERE public.user.email = $1 
-    RETURNING *;
+    WHERE public.user.email = $1;
     `;
     const data = await db.query(authenticateUserQuery, [email]);
     const user = data.rows[0];

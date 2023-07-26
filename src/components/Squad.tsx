@@ -1,6 +1,6 @@
 const Squad = () => {
   return (
-    <div className="border border-orange-600 squad row-span-2 rounded-md">
+    <div className="border border-gray-200 shadow-md  squad row-span-2 rounded-md ">
       <div className='flex justify-between p-2'>
         <div className="flex">
           <div className="text-3xl font-bold">Cohort 58</div>

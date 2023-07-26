@@ -97,6 +97,13 @@ body {
 	width: 100%;
 }
 
+body {
+	background-image: url('./assets/abstract_background.avif');
+	background-size: cover;
+	/* background-repeat: no-repeat; */
+	background-position: center;
+}
+
 #root {
 	height: 100%;
 	width: 100%;
@@ -104,10 +111,10 @@ body {
 	justify-content: center;
 	align-items: center;
 	/* background-color: blue; */
-	background-image: url('./assets/abstract_background.avif');
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
+	/* background-image: url('./assets/abstract_background.avif'); */
+	/* background-size: cover; */
+	/* background-position: center; */
+	/* background-repeat: no-repeat; */
 	padding: 20px;
 }
 
@@ -124,16 +131,17 @@ body {
 }
 
 .navbar {
-	height: 5%;
-	background: salmon;
+	/* height: 5%; */
+	height: 50px;
+
 	display: flex;
 	justify-content: center;
 }
 
 .navbar-container {
-	border: 1px solid teal;
+
 	display: flex;
-	background-color: dodgerblue;
+	
 	width: 100%;
 	height: 100%;
 	justify-content: space-between;
@@ -143,7 +151,6 @@ body {
 }
 
 .nav-section {
-	border: 1px solid pink;
 	width: 32%;
 	display: flex;
 	height: 100%;
@@ -153,7 +160,6 @@ body {
 }
 
 .profile-image {
-	border: 1px solid red;
 	margin-right: 5px;
 }
 
@@ -167,24 +173,86 @@ body {
 
 .feed-container {
 	height: 95%;
+	/* overflow: hidden; */
+}
+
+@media only screen and (max-width: 1024px) {
+	.feed-container {
+		min-height: 1500px;
+	}
+
+	#root {
+		min-height: 1600px;
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	.feed-container {
+		min-height: 1600px;
+	}
+
+	#root {
+		min-height: 1700px;
+	}
 }
 
 /* <div className='task-container md:bg-black lg:bg-red border 
 border-red-500 w-full p-1 gap-1 flex flex-wrap xs:justify-center md:justify-between  lg:justify-between'> */
 .task-container {
-	/* height: auto; */
+	height: 300px;
+	/* height: 90%; */
 	padding: 4px;
-	gap: 10px;
+	gap: 4px;
 	border: 1px solid red;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	overflow-y: scroll;
+	/* overflow-y: hidden; */
 }
 
 .task {
-	height: 130px;
-	width: 250px;
+	height: 120px;
+	width: 300px;
+	border: 1px solid black;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 	/* background-color: red; */
+}
+
+.task-title {
+	font-weight: bolder;
+	border: 1px solid green;
+}
+
+.task-button-container {
+	border: 1px solid pink;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 5px;
+}
+
+.task-button-log {
+	width: 30%;
+	font-size: 0.8rem;
+	color: black;
+	background-color: white;
+}
+
+.task-button-log:hover {
+	background-color: rgb(243, 244, 246) !important;
+}
+
+.task-button-point {
+	color: black;
+	background-color: rgb(229 231 235);
+}
+
+.task-button-point:hover {
+	background-color: rgb(209, 213, 219) !important
 }
 
 @media only screen and (min-width: 600px) {
@@ -192,19 +260,22 @@ border-red-500 w-full p-1 gap-1 flex flex-wrap xs:justify-center md:justify-betw
 		justify-content: space-around;
 	}
 }
-
+@media only screen and (max-width: 640px) {
+	.left {
+		grid-column: span 2 / span 2;
+	}
+}
 /* @media only screen and (min-width: 1000px) {
 	.task-container {
 		justify-content: space-between;
 	}
 } */
 
-@media only screen and (min-width: 600px) {
+/* @media only screen and (min-width: 600px) {
 	.task {
-		/* background-color: red; */
 		width: 300px;
 	}
-}
+} */
 
 span {
 	color: rgb(107 114 128);
@@ -215,3 +286,9 @@ span {
 		width: 350px;
 	}
 }
+
+/* @media only screen and (max-width: 1024px) {
+	.feed-container {
+    min-height:100vh;
+	}
+} */

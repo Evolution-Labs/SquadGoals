@@ -9,8 +9,8 @@ import {
 
 const TopCardDisplay = () => {
   return (
-    <div className='row-span-1 grid grid-rows-4'>
-      <div className="row-span-1 flex justify-end">
+    <div className='grid grid-rows-3'>
+      <div className="row-span-1 flex justify-end mb-2">
         <Tabs defaultValue="account" className="w-34">
           <TabsList className="grid w-34 grid-cols-2">
             <TabsTrigger value="account">Daily</TabsTrigger>
@@ -18,7 +18,7 @@ const TopCardDisplay = () => {
           </TabsList>
         </Tabs>
       </div>
-      <div className='row-span-3 grid grid-cols-3 gap-2'>
+      <div className='row-span-2 grid grid-cols-3 gap-2'>
         <TopCard/>
         <TopCard/>
         <TopCard/>
