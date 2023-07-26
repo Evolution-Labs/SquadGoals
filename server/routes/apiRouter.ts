@@ -40,10 +40,12 @@ apiRouter.post(
   authController.verifyToken,
   taskController.addTask,
   taskController.getTasks,
+  taskController.getCompletedTasks,
   (req: Request, res: Response) => {
-    const { getTasks } = res.locals;
+    const { getTasks, getCompletedTasks } = res.locals;
     res.status(200).json({
       getTasks,
+      getCompletedTasks,
       message: 'Task created successfully!'
     });
   }
@@ -59,7 +61,7 @@ apiRouter.post(
   (req: Request, res: Response) => {
     const { logTask, logTaskPoints } = res.locals;
     res.status(200).json({
-      logTask, // UPDATE WITH SQUAD REDUCER'S COMPLETED TASKS AND POINTS
+      logTask,
       message: 'Task logged successfully!'
     });
   }

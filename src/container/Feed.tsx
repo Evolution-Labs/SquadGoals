@@ -71,12 +71,13 @@ const Feed = () => {
       if(response.ok) {
         const data = await response.json();
         console.log('i am the data inside of feed me',data);
-        const {getSquad} = data.dashboardData;
-        dispatch(actions.setSquadActionCreator({name: getSquad.name, description: getSquad.description, squad_key: getSquad.squad_key, points: data.dashboardData.getSquadPoints,members:data.dashboardData.getUsers.length}));
+        const { getSquad } = data.dashboardData;
+        dispatch(actions.setSquadActionCreator({ name: getSquad.name, description: getSquad.description, squad_key: getSquad.squad_key, points: data.dashboardData.getSquadPoints,members:data.dashboardData.getUsers.length }));
         
-        dispatch(actions.setUserActionCreator({points:data.dashboardData.getUserPoints,first_name:userInfo.first_name, last_name:userInfo.last_name}));
-      
-        dispatch(actions.setTaskActionCreator({tasks: data.dashboardData.getTasks, completed_tasks: data.dashboardData.getCompletedTasks}));
+        dispatch(actions.setUserActionCreator({ points:data.dashboardData.getUserPoints,first_name:userInfo.first_name, last_name:userInfo.last_name })); 
+        const nameTasks = data.dashboardData.getCompletedTasks.map(task=>task.name); // Array of names
+        console.log('i am the nametasks in feed.tsx', nameTasks);
+        dispatch(actions.setTaskActionCreator({ tasks: data.dashboardData.getTasks, completed_tasks: data.dashboardData.getCompletedTasks}));
       }
     } catch (error) {
       console.error(error);
@@ -87,20 +88,25 @@ const Feed = () => {
   }, []);
 
   return (
-    <div className="border rounded-lg border-slate-200 overflow-hidden w-full bg-slate-50 feed-container">
+
+    <div className="border rounded-lg border-slate-200 overflow-hidden bg-slate-50 w-full h-full">
       <Navbar/>
-      <div className="grid lg:grid-cols-3 sm:grid-cols-1 h-full">
-        <div className="left m-4 col-span-1 h-full grid gap-3 p-2">
+
+      <div className='flex p-4 h-full overflow-y-scroll'>
+        <div className='w-[40%] mx-2 sticky top-0'> 
           <Squad/> 
           <ActivityFeedDisplay/>  
         </div>
-        <div className="right mt-4 mr-4 col-span-2 grid p-2">
+
+        <div className='w-[60%] mx-2'> 
           <TopCardDisplay />
           <DailyDisplay />
           <TasksDisplay /> 
         </div>
       </div>
+
     </div>
+
   );
 };
 

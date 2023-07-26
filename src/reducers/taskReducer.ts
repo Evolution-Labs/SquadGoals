@@ -4,12 +4,14 @@ import type { PayloadAction, Action } from '@reduxjs/toolkit';
 
 type TaskState = {
   tasks: [],
-  completed_tasks: []
+  completed_tasks: [],
+  current_completed:string[]
 }
 
 const initialState: TaskState = {
   tasks: [],
-  completed_tasks: []
+  completed_tasks: [],
+  current_completed:[]
 };
 //   "getTasks": [
 //       {
@@ -45,11 +47,15 @@ const taskReducer = createReducer(initialState, (builder) => {
       state.tasks = tasks;
       // UPDATES STORE STATE WITH COMPLETED TASKS FOR THE CURRENT SQUAD - ALL USERS
       state.completed_tasks = completed_tasks;
+      // state.current_completed = current_completed;
     })
-
     .addCase(actions.addCompletedTaskActionCreator, (state, action: Action) => {
       const { logTask } = action.payload;
       state.completed_tasks.push(logTask);
+    })
+    .addCase(actions.setCurrentCompletedActionCreator, (state, action: Action) => {
+      const { completed } = action.payload;
+      state.current_completed.push(completed);
     });
 });
 
