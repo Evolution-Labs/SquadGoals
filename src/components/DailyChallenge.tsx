@@ -20,7 +20,6 @@ const DailyChallenge = ({ points, _id, name }) => {
         const data = await response.json();
         const logTask = data.logTask;
         const message = data.message;
-        console.log(message);
       }
     } catch (error) {
       console.error(error);

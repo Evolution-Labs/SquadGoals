@@ -1,7 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 
-
 const ActivityFeed = ({ title, points, time }) => {
   return (
     <div className='grid grid-cols-1 p-2'>

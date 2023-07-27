@@ -12,10 +12,8 @@ import {useSelector, useDispatch} from 'react-redux';
 const Navbar = () => {
 
   const userInfo = useSelector((state)=>state.userReducer);
-  console.log(userInfo);
   const username = 'Konnichiwa ' + userInfo.first_name;
   // useEffect(() => {
-  //   console.log(userInfo)
   // }, []);
   
   return (
