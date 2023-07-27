@@ -23,7 +23,6 @@ const Signup = ({changeComponent}) => {
       return alert('BAKA! Passwords Do Not Match!!');
     }
     const body = {email,password,first_name:firstName,last_name:lastName,squad_id:1};
-    console.log('i am body',body);
     try {
       const response = await fetch('/user/signup', {
         method: 'POST',

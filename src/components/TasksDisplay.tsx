@@ -27,24 +27,22 @@ const TasksDisplay = () => {
   const taskInfo = useSelector((state) => state.taskReducer);
   // const tasks = taskInfo.tasks.filter(task => !task.daily_challenge);
   // let tasks;
-  console.log('tasks in tasks display', tasks);
   useEffect(() => {
     setTasks(taskInfo.tasks.filter(task => !task.daily_challenge));
   }, [taskInfo.tasks]);
   // const createTask = () => {
 
   // };
-  console.log('tasks', tasks);
 
   return (
-    <div className='flex flex-col gap-2 bg-white border p-4'>
-      <div className='w-full flex justify-between items-center font-bold text-xl'>
+    <div className='flex flex-col gap-2 bg-white border p-4 shadow-md rounded-md'>
+      <div className='w-full flex justify-between items-center font-semibold text-l'>
         Tasks
         <CreateTask isDailyChallenge={false}/>
       </div>
-      <div className='flex flex-wrap shadow-md rounded-md'>
-        {tasks.map((el) => {
-          return <Task title={el.name} _id={el._id} points={el.points}/>;
+      <div className='flex flex-wrap'>
+        {tasks.map((el,i) => {
+          return <Task title={el.name} key={i} _id={el._id} points={el.points}/>;
         })}
       </div>
       

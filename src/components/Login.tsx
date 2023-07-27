@@ -19,21 +19,11 @@ const Login = ({changeComponent}) => {
   //setting username and password
   const [password,setPassword] = useState('');
   const [email,setEmail] = useState('');
-  
   const dispatch = useDispatch();
   //setting toast
   const { toast } = useToast();
-  
   //setting navigate
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   // const cookies = browser.cookies.get('token')
-  //   console.log('i am looking for cookies');
-  //   const cookies = document.cookie;
-  //   console.log(cookies);
-  // }, [])
-
 
   //form submission function for login
   const formSubmission = async (event) => {

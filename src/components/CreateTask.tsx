@@ -24,10 +24,8 @@ const CreateTask = ({title, isDailyChallenge}) => {
 
   const createNewTask = async (event) => {
     event.preventDefault();
-    console.log('clicked submit on task it up');
 
     const body = {name: task, points: points, daily_challenge: isDailyChallenge}
-    // console.log('task', task, 'points', points)
     try {
       const newTask = await fetch('/api/tasks', {
         method: 'POST',
@@ -38,12 +36,10 @@ const CreateTask = ({title, isDailyChallenge}) => {
       });
       if (newTask.ok) {
         const data = await newTask.json();
-        console.log(data);
         dispatch(actions.setTaskActionCreator({tasks: data.getTasks, completed_tasks: data.getCompletedTasks}));
       }
-      // console.log(('newTask', newTask))
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

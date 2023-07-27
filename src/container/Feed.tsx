@@ -57,8 +57,6 @@ const Feed = () => {
   const userInfo = useSelector((state) => state.userReducer);
   const squadInfo = useSelector((state) => state.squadReducer);
   const taskInfo = useSelector((state) => state.taskReducer);
-  console.log('squadInfo', squadInfo);
-  console.log('taskinfo', taskInfo);
   const fetchData = async () => {
     try {
       const response = await fetch('/api/dashboard', {
@@ -70,13 +68,10 @@ const Feed = () => {
       });
       if(response.ok) {
         const data = await response.json();
-        console.log('i am the data inside of feed me',data);
         const { getSquad } = data.dashboardData;
         dispatch(actions.setSquadActionCreator({ name: getSquad.name, description: getSquad.description, squad_key: getSquad.squad_key, points: data.dashboardData.getSquadPoints,members:data.dashboardData.getUsers.length }));
-        
         dispatch(actions.setUserActionCreator({ points:data.dashboardData.getUserPoints,first_name:userInfo.first_name, last_name:userInfo.last_name })); 
         const nameTasks = data.dashboardData.getCompletedTasks.map(task=>task.name); // Array of names
-        console.log('i am the nametasks in feed.tsx', nameTasks);
         dispatch(actions.setTaskActionCreator({ tasks: data.dashboardData.getTasks, completed_tasks: data.dashboardData.getCompletedTasks}));
       }
     } catch (error) {
@@ -89,7 +84,7 @@ const Feed = () => {
 
   return (
 
-    <div className="border rounded-lg border-slate-200 overflow-hidden bg-slate-50 w-full h-full">
+    <div className="border rounded-lg border-slate-200 overflow-hidden bg-slate-50 w-full h-full pb-24">
       <Navbar/>
 
       <div className='flex p-4 h-full overflow-y-scroll'>
